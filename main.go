@@ -39,9 +39,9 @@ func main() {
 	mux := http.NewServeMux()
 	config := &apiConfig{}
 	mux.Handle("/app/", config.middlewareMetricsInc(http.StripPrefix("/app", http.FileServer(http.Dir(".")))))
-	mux.HandleFunc("GET /healthz", healthCheckHandler)
-	mux.Handle("GET /metrics", config.printHits())
-	mux.Handle("POST /reset", config.resetHits())
+	mux.HandleFunc("GET /api/healthz", healthCheckHandler)
+	mux.Handle("GET /api/metrics", config.printHits())
+	mux.Handle("POST /api/reset", config.resetHits())
 	server := &http.Server{Addr: ":8080", Handler: mux}
 	server.ListenAndServe()
 }
